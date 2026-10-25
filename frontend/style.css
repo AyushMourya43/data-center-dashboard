@@ -3150,3 +3150,131 @@ html[data-theme="dark"] .brand-icon {
     }
 
 }
+
+
+/* =====================================================
+   DATABRICKS-INSPIRED PREMIUM DARK THEME
+   Dark mode only — existing layout stays unchanged
+===================================================== */
+
+html[data-theme="dark"] {
+    color-scheme: dark;
+
+    /* Dark charcoal background */
+    --page-bg: #111920;
+    --header-bg: #19232c;
+    --sidebar-bg: #19232c;
+
+    /* Card surfaces */
+    --card-bg: #17232e;
+    --card-hover: #203140;
+    --card-subtle: #1d2b37;
+
+    /* Typography */
+    --text-primary: #f3f7fc;
+    --text-secondary: #aabed0;
+    --text-muted: #8399ad;
+
+    /* Borders */
+    --border-color: #2b3c4b;
+    --grid-color: rgba(152, 179, 202, 0.12);
+
+    /* Blue accent */
+    --primary-blue: #3296ff;
+    --primary-blue-hover: #62adff;
+    --blue-glow: rgba(50, 150, 255, 0.13);
+
+    /* Status colors */
+    --green: #17d6a3;
+    --yellow: #ffbc42;
+    --red: #ff6072;
+
+    /* Sidebar and search */
+    --sidebar-active-bg: #263e56;
+    --search-bg: #202e3a;
+
+    /* Illustration background */
+    --map-bg:
+        radial-gradient(
+            ellipse at 50% 65%,
+            rgba(23, 108, 185, 0.15),
+            transparent 72%
+        ),
+        linear-gradient(
+            180deg,
+            #172531 0%,
+            #101b25 100%
+        );
+
+    --status-row-hover: #213240;
+
+    --shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+    --shadow-hover: 0 10px 26px rgba(0, 0, 0, 0.28);
+}
+
+/* Header and sidebar */
+html[data-theme="dark"] .top-header {
+    background: #19232c;
+    border-bottom: 1px solid #30404d;
+}
+
+html[data-theme="dark"] .sidebar {
+    background: linear-gradient(
+        180deg,
+        #1b2731 0%,
+        #17212a 100%
+    );
+}
+
+/* Active sidebar item */
+html[data-theme="dark"] .nav-item.active {
+    background: linear-gradient(
+        100deg,
+        #26435d,
+        #20364a
+    );
+    color: #65b4ff;
+    border-left: 2px solid #3296ff;
+}
+
+html[data-theme="dark"] .nav-item.active i {
+    color: #65b4ff;
+}
+
+/* KPI cards */
+html[data-theme="dark"] .kpi-card {
+    background: linear-gradient(
+        145deg,
+        #1b2b39,
+        #16232e
+    );
+
+    border: 1px solid #304253;
+
+    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.14);
+}
+
+/* Main dashboard panels */
+html[data-theme="dark"] .dashboard-card {
+    background: linear-gradient(
+        150deg,
+        #192732,
+        #14212b
+    );
+
+    border-color: #2d4151;
+
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.14);
+}
+
+/* Search input */
+html[data-theme="dark"] .global-search {
+    background: #222f3b;
+    border-color: #344555;
+}
+
+/* Theme switch */
+html[data-theme="dark"] .theme-switcher {
+    background: #1b2936;
+    border-color: #344a5d;
+}
