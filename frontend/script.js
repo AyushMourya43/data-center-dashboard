@@ -28,11 +28,30 @@
 // 01. API CONFIGURATION
 // ============================================================
 
-const API_BASE = "http://127.0.0.1:8000";
+
+function dashboardApi(endpoint) {
+    const paths = {
+        overview: "/api/overview",
+        risk: "/api/risk-analysis",
+        comparison: "/api/intelligence/daily-comparison",
+        anomalies: "/api/intelligence/anomalies"
+    };
+
+    const isLocal = [
+        "localhost",
+        "127.0.0.1"
+    ].includes(window.location.hostname);
+
+    if (isLocal) {
+        return "http://127.0.0.1:8000" + paths[endpoint];
+    }
+
+    return "/api/proxy?endpoint=" + endpoint;
+}
 
 const API = {
-    overview: `${API_BASE}/api/overview`,
-    risk: `${API_BASE}/api/risk-analysis`
+    overview: dashboardApi("overview"),
+    risk: dashboardApi("risk")
 };
 
 // ============================================================
@@ -7029,8 +7048,7 @@ if (document.readyState === "loading") {
     "use strict";
 
     const API_URL =
-        "http://127.0.0.1:8000/api/overview";
-
+       dashboardApi("overview");
     let host = null;
     let page = null;
     let records = [];
@@ -8558,7 +8576,7 @@ if (document.readyState === "loading") {
     "use strict";
 
     const API_URL =
-        "http://127.0.0.1:8000/api/intelligence/daily-comparison";
+       dashboardApi("comparison");
 
     let section = null;
     let loading = false;
@@ -9414,8 +9432,7 @@ if (document.readyState === "loading") {
     "use strict";
 
     const API_URL =
-        "http://127.0.0.1:8000/api/intelligence/anomalies";
-
+       dashboardApi("anomalies");
     let panel = null;
     let loading = false;
 
