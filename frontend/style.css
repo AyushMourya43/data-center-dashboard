@@ -1,0 +1,3152 @@
+
+/* =========================================================
+   DATA CENTER INTELLIGENCE
+   SCREENSHOT-INSPIRED PREMIUM DASHBOARD
+
+   LIGHT THEME + DARK THEME
+   Responsive Infrastructure Monitoring UI
+========================================================= */
+
+/* =========================================================
+   01. DESIGN TOKENS — LIGHT THEME
+========================================================= */
+
+:root {
+    color-scheme: light;
+
+    --page-bg: #f2f7fd;
+    --header-bg: #ffffff;
+    --sidebar-bg: #ffffff;
+
+    --card-bg: #ffffff;
+    --card-hover: #f8fbff;
+    --card-subtle: #f4f8ff;
+
+    --text-primary: #112a55;
+    --text-secondary: #57749f;
+    --text-muted: #7893b4;
+
+    --border-color: #e5edf8;
+    --grid-color: rgba(58, 115, 191, 0.11);
+
+    --primary-blue: #0867ee;
+    --primary-blue-hover: #0058d5;
+    --blue-glow: rgba(25, 113, 244, 0.15);
+
+    --green: #09b987;
+    --yellow: #ffae19;
+    --red: #ff515b;
+    --purple: #9864ff;
+
+    --icon-blue-bg: #e7f0ff;
+    --icon-purple-bg: #f0e9ff;
+    --icon-orange-bg: #fff2e1;
+    --icon-cyan-bg: #e7f5ff;
+    --icon-red-bg: #ffe6e9;
+
+    --sidebar-active-bg: #dceaff;
+    --search-bg: #f3f7fc;
+
+    --map-bg:
+        radial-gradient(
+            ellipse at 50% 65%,
+            rgba(112, 179, 239, 0.19),
+            transparent 70%
+        ),
+        linear-gradient(
+            180deg,
+            #fbfdff 0%,
+            #edf6ff 100%
+        );
+
+    --status-row-hover: #f3f8ff;
+
+    --shadow:
+        0 3px 16px rgba(39, 81, 144, 0.045);
+
+    --shadow-hover:
+        0 9px 25px rgba(39, 81, 144, 0.10);
+
+    --sidebar-width: 148px;
+    --header-height: 61px;
+}
+
+/* =========================================================
+   02. DARK THEME TOKENS
+========================================================= */
+
+html[data-theme="dark"] {
+    color-scheme: dark;
+
+    --page-bg: #03121e;
+    --header-bg: #061421;
+    --sidebar-bg: #061522;
+
+    --card-bg: #0a1d2e;
+    --card-hover: #10283c;
+    --card-subtle: #11283b;
+
+    --text-primary: #f0f6ff;
+    --text-secondary: #b0c6df;
+    --text-muted: #7f9ab7;
+
+    --border-color: #16324a;
+    --grid-color: rgba(119, 169, 214, 0.12);
+
+    --primary-blue: #1687ff;
+    --primary-blue-hover: #3799ff;
+    --blue-glow: rgba(0, 133, 255, 0.16);
+
+    --green: #10d8a7;
+    --yellow: #ffb62e;
+    --red: #ff5967;
+    --purple: #a274ff;
+
+    --icon-blue-bg: #10345a;
+    --icon-purple-bg: #2c2053;
+    --icon-orange-bg: #322b1d;
+    --icon-cyan-bg: #10344c;
+    --icon-red-bg: #3a202e;
+
+    --sidebar-active-bg: #0967df;
+    --search-bg: #102639;
+
+    --map-bg:
+        radial-gradient(
+            ellipse at 50% 65%,
+            rgba(0, 118, 232, 0.20),
+            transparent 72%
+        ),
+        linear-gradient(
+            180deg,
+            #071b2d 0%,
+            #031321 100%
+        );
+
+    --status-row-hover: #122c42;
+
+    --shadow:
+        0 4px 18px rgba(0, 0, 0, 0.13);
+
+    --shadow-hover:
+        0 12px 28px rgba(0, 0, 0, 0.24);
+}
+
+/* =========================================================
+   03. GLOBAL RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+
+    font-family:
+        "Inter",
+        "Plus Jakarta Sans",
+        sans-serif;
+
+    font-size: 12px;
+
+    color: var(--text-primary);
+    background: var(--page-bg);
+
+    -webkit-font-smoothing: antialiased;
+
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease;
+}
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+button,
+select {
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    border: 0;
+}
+
+.hidden {
+    display: none !important;
+}
+
+::selection {
+    color: #ffffff;
+    background: var(--primary-blue);
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background: rgba(115, 148, 188, 0.35);
+}
+
+/* =========================================================
+   04. APP SHELL
+========================================================= */
+
+.app-shell {
+    min-height: 100vh;
+    width: 100%;
+}
+
+.app-body {
+    display: grid;
+
+    grid-template-columns:
+        var(--sidebar-width)
+        minmax(0, 1fr);
+
+    min-height: calc(
+        100vh - var(--header-height)
+    );
+}
+
+/* =========================================================
+   05. TOP HEADER
+========================================================= */
+
+.top-header {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+
+    height: var(--header-height);
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 16px;
+
+    padding: 0 20px;
+
+    background: var(--header-bg);
+
+    border-bottom: 1px solid var(--border-color);
+
+    box-shadow:
+        0 2px 14px rgba(22, 75, 130, 0.025);
+}
+
+.header-brand {
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    min-width: 0;
+    flex-shrink: 0;
+}
+
+.brand-icon {
+    position: relative;
+
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 9px;
+
+    color: #ffffff;
+
+    font-size: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #6bb3ff 0%,
+            #2679f1 55%,
+            #074db8 100%
+        );
+
+    box-shadow:
+        0 5px 13px rgba(16, 116, 235, 0.24);
+}
+
+.brand-icon::before,
+.brand-icon::after {
+    content: "";
+
+    position: absolute;
+
+    right: 7px;
+
+    width: 3px;
+    height: 3px;
+
+    border-radius: 50%;
+
+    background: #b7fffc;
+
+    box-shadow: 0 0 4px #b7fffc;
+}
+
+.brand-icon::before {
+    top: 11px;
+}
+
+.brand-icon::after {
+    bottom: 11px;
+}
+
+.brand-text h1 {
+    font-family:
+        "Plus Jakarta Sans",
+        sans-serif;
+
+    font-size: 17px;
+
+    font-weight: 800;
+
+    letter-spacing: -0.65px;
+
+    line-height: 1.25;
+
+    white-space: nowrap;
+}
+
+.brand-text p {
+    color: var(--text-secondary);
+
+    font-size: 10px;
+
+    letter-spacing: 0.05px;
+
+    margin-top: 4px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    min-width: 0;
+    flex: 1;
+}
+
+.global-search {
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    padding: 0 12px;
+
+    background: var(--search-bg);
+
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+
+    width: 245px;
+    max-width: 100%;
+
+    color: var(--text-secondary);
+}
+
+.global-search:focus-within {
+    border-color: var(--primary-blue);
+
+    box-shadow:
+        0 0 0 3px var(--blue-glow);
+}
+
+.global-search > i {
+    color: var(--text-secondary);
+
+    font-size: 12px;
+
+    flex-shrink: 0;
+}
+
+.global-search input {
+    min-width: 0;
+    width: 100%;
+
+    border: 0;
+    outline: 0;
+
+    background: transparent;
+
+    color: var(--text-primary);
+
+    font-size: 10px;
+}
+
+.global-search input::placeholder {
+    color: var(--text-muted);
+}
+
+.header-date {
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 0 11px;
+
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+
+    white-space: nowrap;
+}
+
+.header-date > i:first-child {
+    color: var(--text-primary);
+
+    font-size: 14px;
+}
+
+.header-date strong,
+.header-date small {
+    display: block;
+}
+
+.header-date strong {
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+.header-date small {
+    margin-top: 3px;
+
+    color: var(--text-muted);
+
+    font-size: 8px;
+}
+
+.date-arrow {
+    margin-left: 7px;
+
+    font-size: 9px;
+
+    color: var(--text-secondary);
+}
+
+.header-icon-btn {
+    position: relative;
+
+    width: 32px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: transparent;
+
+    color: var(--text-primary);
+
+    font-size: 18px;
+
+    flex-shrink: 0;
+}
+
+.header-icon-btn:hover {
+    color: var(--primary-blue);
+}
+
+.notification-count {
+    position: absolute;
+
+    top: 1px;
+    right: 0;
+
+    min-width: 14px;
+    height: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 3px;
+
+    border: 2px solid var(--header-bg);
+    border-radius: 20px;
+
+    background: var(--red);
+
+    color: #ffffff;
+
+    font-size: 7px;
+
+    font-weight: 800;
+}
+
+.profile-button {
+    width: 33px;
+    height: 33px;
+
+    display: grid;
+    place-items: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            145deg,
+            #1988ff,
+            #0755d9
+        );
+
+    color: #ffffff;
+
+    font-size: 12px;
+
+    font-weight: 800;
+}
+
+.mobile-menu-button {
+    display: none;
+
+    color: var(--text-primary);
+    background: transparent;
+
+    font-size: 19px;
+}
+
+/* =========================================================
+   06. LEFT SIDEBAR
+========================================================= */
+
+.sidebar {
+    position: sticky;
+    top: var(--header-height);
+
+    height: calc(
+        100vh - var(--header-height)
+    );
+
+    align-self: start;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 17px 9px 15px;
+
+    background: var(--sidebar-bg);
+
+    border-right: 1px solid var(--border-color);
+
+    z-index: 110;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+.nav-item {
+    min-height: 37px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 0 11px;
+
+    border-radius: 7px;
+
+    color: var(--text-primary);
+
+    font-size: 11px;
+
+    font-weight: 500;
+
+    white-space: nowrap;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.nav-item i {
+    width: 15px;
+
+    flex-shrink: 0;
+
+    color: var(--text-secondary);
+
+    font-size: 14px;
+
+    text-align: center;
+}
+
+.nav-item:hover {
+    color: var(--primary-blue);
+    background: var(--card-subtle);
+}
+
+.nav-item.active {
+    color: var(--primary-blue);
+
+    background: var(--sidebar-active-bg);
+
+    font-weight: 600;
+}
+
+.nav-item.active i {
+    color: var(--primary-blue);
+}
+
+html[data-theme="dark"] .nav-item.active,
+html[data-theme="dark"] .nav-item.active i {
+    color: #ffffff;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding-top: 14px;
+
+    border-top: 1px solid var(--border-color);
+
+    font-size: 9px;
+
+    color: var(--text-muted);
+}
+
+.sidebar-environment-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: var(--green);
+
+    box-shadow:
+        0 0 7px rgba(16, 216, 167, 0.3);
+}
+
+.sidebar-overlay {
+    display: none;
+}
+
+/* =========================================================
+   07. MAIN DASHBOARD AREA
+========================================================= */
+
+.dashboard-main {
+    min-width: 0;
+
+    padding: 10px;
+
+    background: var(--page-bg);
+}
+
+.dashboard-page {
+    width: 100%;
+    min-width: 0;
+
+    max-width: 1800px;
+
+    margin: 0 auto;
+}
+
+/* =========================================================
+   08. KPI GRID
+========================================================= */
+
+.kpi-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 9px;
+
+    margin-bottom: 9px;
+}
+
+.kpi-card {
+    min-width: 0;
+    min-height: 82px;
+
+    display: flex;
+    align-items: flex-start;
+
+    gap: 11px;
+
+    padding: 12px 11px;
+
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+
+    background: var(--card-bg);
+
+    box-shadow: var(--shadow);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.kpi-card:hover {
+    transform: translateY(-3px);
+
+    border-color: rgba(21, 126, 255, 0.3);
+
+    box-shadow: var(--shadow-hover);
+}
+
+.kpi-icon-box {
+    width: 43px;
+    height: 47px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    font-size: 24px;
+
+    flex-shrink: 0;
+}
+
+.kpi-icon-box.blue {
+    color: #2386ff;
+    background: var(--icon-blue-bg);
+}
+
+.kpi-icon-box.purple {
+    color: var(--purple);
+    background: var(--icon-purple-bg);
+}
+
+.kpi-icon-box.orange {
+    color: #ff9c16;
+    background: var(--icon-orange-bg);
+}
+
+.kpi-icon-box.ice-blue {
+    color: #38a9ee;
+    background: var(--icon-cyan-bg);
+}
+
+.kpi-icon-box.red {
+    color: var(--red);
+    background: var(--icon-red-bg);
+}
+
+.kpi-content {
+    min-width: 0;
+    flex: 1;
+}
+
+.kpi-content h3 {
+    color: var(--text-primary);
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    line-height: 1.4;
+
+    margin-bottom: 6px;
+}
+
+.kpi-value {
+    font-family:
+        "Plus Jakarta Sans",
+        sans-serif;
+
+    color: var(--text-primary);
+
+    font-size: 23px;
+
+    font-weight: 800;
+
+    line-height: 1.1;
+
+    letter-spacing: -0.8px;
+
+    white-space: nowrap;
+}
+
+.kpi-value.blue-text,
+.blue-text {
+    color: var(--primary-blue);
+}
+
+.kpi-value.red-text,
+.red-text {
+    color: var(--red);
+}
+
+.value-unit {
+    font-size: 15px;
+}
+
+.kpi-description {
+    margin-top: 6px;
+
+    color: var(--text-secondary);
+
+    font-size: 9px;
+
+    line-height: 1.4;
+
+    white-space: normal;
+}
+
+.kpi-description.positive {
+    color: var(--green);
+}
+
+.kpi-description i {
+    font-size: 9px;
+}
+
+/* =========================================================
+   09. SHARED DASHBOARD CARDS
+========================================================= */
+
+.dashboard-card {
+    min-width: 0;
+
+    overflow: hidden;
+
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+
+    background: var(--card-bg);
+
+    box-shadow: var(--shadow);
+}
+
+.card-header {
+    min-height: 43px;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 8px;
+
+    padding: 11px 12px 8px;
+}
+
+.card-heading {
+    min-width: 0;
+
+    display: flex;
+    align-items: flex-start;
+
+    gap: 8px;
+}
+
+.card-header-icon {
+    width: 20px;
+    height: 20px;
+
+    display: grid;
+    place-items: center;
+
+    flex-shrink: 0;
+
+    border-radius: 5px;
+
+    color: #ffffff;
+
+    font-size: 10px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #5daaff,
+            #1779ed
+        );
+
+    box-shadow:
+        0 3px 8px rgba(15, 115, 238, 0.15);
+}
+
+.card-heading h2 {
+    color: var(--text-primary);
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    line-height: 1.35;
+}
+
+.card-heading p {
+    margin-top: 3px;
+
+    color: var(--text-secondary);
+
+    font-size: 9px;
+
+    line-height: 1.3;
+}
+
+/* =========================================================
+   10. MONITORING GRID
+========================================================= */
+
+.monitoring-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.68fr)
+        minmax(0, 1fr);
+
+    gap: 9px;
+
+    margin-bottom: 9px;
+
+    align-items: stretch;
+}
+
+.data-center-map-card {
+    min-height: 330px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.data-center-map-card .card-header {
+    position: relative;
+    z-index: 2;
+}
+
+.status-legend {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+
+    gap: 9px;
+
+    margin-top: 4px;
+}
+
+.status-legend > span {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 4px;
+
+    color: var(--text-secondary);
+
+    font-size: 9px;
+
+    white-space: nowrap;
+}
+
+.status-dot {
+    display: inline-block;
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    flex-shrink: 0;
+
+    vertical-align: middle;
+}
+
+.status-dot.healthy,
+.legend-circle.healthy {
+    background: var(--green);
+}
+
+.status-dot.warning,
+.legend-circle.warning {
+    background: var(--yellow);
+}
+
+.status-dot.critical,
+.legend-circle.critical {
+    background: var(--red);
+}
+
+.legend-circle.info {
+    background: var(--primary-blue);
+}
+
+/* =========================================================
+   11. ISOMETRIC DATA CENTER MAP
+========================================================= */
+
+.infrastructure-visual {
+    position: relative;
+
+    width: 100%;
+
+    flex: 1;
+
+    min-height: 274px;
+
+    overflow: hidden;
+
+    background: var(--map-bg);
+}
+
+.infrastructure-visual::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 50% 80%,
+            rgba(38, 130, 255, 0.07),
+            transparent 55%
+        );
+
+    z-index: 0;
+}
+
+.data-center-illustration {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    z-index: 1;
+
+    transform: scale(1.13) translateY(3%);
+
+    transform-origin: center center;
+
+    overflow: visible;
+
+    filter:
+        drop-shadow(
+            0 10px 12px rgba(36, 101, 164, 0.12)
+        );
+}
+
+html[data-theme="dark"] .data-center-illustration {
+    filter:
+        brightness(0.70)
+        saturate(1.35)
+        contrast(1.07)
+        drop-shadow(
+            0 8px 15px rgba(0, 0, 0, 0.33)
+        );
+}
+
+html[data-theme="dark"] .campus-ground {
+    fill: #164163;
+}
+
+.critical-building-visual {
+    animation:
+        criticalBuildingPulse 3s ease-in-out infinite;
+}
+
+/* FLOATING STATUS LABELS */
+
+.map-location-pin {
+    position: absolute;
+
+    z-index: 5;
+
+    min-width: 53px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 3px;
+
+    padding: 8px 6px;
+
+    border: 1px solid rgba(150, 190, 232, 0.43);
+    border-radius: 8px;
+
+    background: rgba(255, 255, 255, 0.97);
+
+    box-shadow:
+        0 5px 15px rgba(25, 67, 119, 0.13);
+
+    color: #163564;
+
+    text-align: center;
+
+    cursor: default;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.map-location-pin:hover {
+    z-index: 20;
+
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 10px 20px rgba(19, 82, 151, 0.22);
+}
+
+.map-location-pin strong {
+    color: #183460;
+
+    font-size: 10px;
+
+    font-weight: 800;
+}
+
+.pin-temperature {
+    color: #00a878;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+.pin-temperature.warning-text {
+    color: #f09c0b;
+}
+
+.pin-temperature.critical-text {
+    color: #fa4556;
+}
+
+.map-location-pin small {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 3px;
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+.map-location-pin small.healthy {
+    color: #00a878;
+}
+
+.map-location-pin small.warning {
+    color: #ed9c0b;
+}
+
+.map-location-pin small.critical {
+    color: #f04453;
+}
+
+.map-location-pin small .status-dot {
+    width: 6px;
+    height: 6px;
+}
+
+/* MATCH REFERENCE PIN POSITIONS */
+
+.pin-dc01 {
+    left: 13%;
+    top: 21%;
+}
+
+.pin-dc02 {
+    left: 35%;
+    top: 11%;
+}
+
+.pin-dc03 {
+    left: 61%;
+    top: 12%;
+}
+
+.pin-dc04 {
+    left: 42%;
+    top: 39%;
+}
+
+.pin-dc05 {
+    right: 7%;
+    top: 28%;
+}
+
+.pin-dc06 {
+    left: 4%;
+    bottom: 13%;
+}
+
+.pin-dc07 {
+    left: 23%;
+    bottom: 9%;
+}
+
+.pin-dc08 {
+    left: 44%;
+    bottom: 4%;
+}
+
+.pin-dc09 {
+    right: 21%;
+    bottom: 9%;
+}
+
+.pin-dc10 {
+    right: 3%;
+    bottom: 12%;
+}
+
+.map-demo-label {
+    position: absolute;
+
+    right: 8px;
+    bottom: 5px;
+
+    z-index: 6;
+
+    padding: 3px 6px;
+
+    border-radius: 5px;
+
+    color: var(--text-secondary);
+
+    background: var(--card-bg);
+
+    font-size: 8px;
+
+    opacity: 0.8;
+}
+
+/* =========================================================
+   12. RIGHT-SIDE CHARTS
+========================================================= */
+
+.monitoring-charts {
+    min-width: 0;
+
+    display: grid;
+
+    grid-template-rows:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    gap: 9px;
+}
+
+.compact-chart-card {
+    min-height: 0;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.compact-chart-card .card-header {
+    padding-bottom: 2px;
+}
+
+.chart-select {
+    max-width: 115px;
+
+    padding: 6px 7px;
+
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+
+    outline: none;
+
+    color: var(--text-primary);
+    background: var(--card-bg);
+
+    font-size: 8px;
+}
+
+.chart-select:focus {
+    border-color: var(--primary-blue);
+}
+
+.chart-wrapper {
+    position: relative;
+
+    min-width: 0;
+    min-height: 0;
+
+    width: 100%;
+}
+
+.temperature-chart-wrapper {
+    height: 119px;
+
+    flex: 1;
+
+    padding: 5px 9px 0;
+}
+
+.power-chart-wrapper {
+    height: 124px;
+
+    flex: 1;
+
+    padding: 7px 10px 8px;
+}
+
+.chart-wrapper canvas {
+    display: block;
+    max-width: 100%;
+}
+
+.chart-mini-legend {
+    min-height: 19px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    padding: 1px 7px 7px;
+
+    font-size: 8px;
+
+    color: var(--text-secondary);
+}
+
+.chart-mini-legend span {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 4px;
+}
+
+.chart-mini-legend i {
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    display: inline-block;
+}
+
+/* =========================================================
+   13. STATUS GRID
+========================================================= */
+
+.status-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.72fr)
+        minmax(0, 1fr);
+
+    gap: 9px;
+
+    margin-bottom: 9px;
+}
+
+.status-table-card {
+    min-width: 0;
+}
+
+.status-table-card .card-header {
+    min-height: 37px;
+
+    padding-bottom: 6px;
+}
+
+.table-scroll {
+    overflow-x: auto;
+}
+
+.status-table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    text-align: left;
+}
+
+.status-table thead {
+    background: var(--card-subtle);
+}
+
+.status-table th {
+    padding: 8px 9px;
+
+    color: var(--text-secondary);
+
+    font-size: 8.5px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+.status-table td {
+    padding: 6px 9px;
+
+    border-bottom: 1px solid var(--border-color);
+
+    color: var(--text-secondary);
+
+    font-size: 9px;
+
+    white-space: nowrap;
+}
+
+.status-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.status-table tbody tr:hover {
+    background: var(--status-row-hover);
+}
+
+.status-table td:first-child {
+    color: var(--text-primary);
+
+    font-weight: 600;
+}
+
+.status-table .temperature-warning {
+    color: var(--yellow);
+
+    font-weight: 700;
+}
+
+.status-table .temperature-critical {
+    color: var(--red);
+
+    font-weight: 700;
+}
+
+.table-status {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 5px;
+
+    padding: 4px 8px;
+
+    border-radius: 30px;
+
+    font-size: 8px;
+
+    font-weight: 700;
+}
+
+.table-status::before {
+    content: "";
+
+    display: inline-block;
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: currentColor;
+}
+
+.table-status.healthy {
+    background: rgba(9, 185, 135, 0.11);
+    color: var(--green);
+}
+
+.table-status.warning {
+    background: rgba(255, 174, 25, 0.14);
+    color: var(--yellow);
+}
+
+.table-status.critical {
+    background: rgba(255, 81, 91, 0.12);
+    color: var(--red);
+}
+
+/* =========================================================
+   14. ALERT COLUMN
+========================================================= */
+
+.alert-column {
+    min-width: 0;
+
+    display: grid;
+
+    grid-template-rows: auto 1fr;
+
+    gap: 9px;
+}
+
+/* DONUT DISTRIBUTION */
+
+.alert-distribution-card {
+    min-height: 139px;
+}
+
+.alert-distribution-card .card-header {
+    min-height: 36px;
+
+    padding-bottom: 2px;
+}
+
+.donut-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    gap: 10px;
+
+    padding: 5px 12px 12px;
+}
+
+.donut-chart-container {
+    position: relative;
+
+    width: 120px;
+    height: 112px;
+
+    flex-shrink: 0;
+}
+
+.donut-chart-container canvas {
+    display: block;
+    max-width: 100%;
+}
+.donut-center-text {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    pointer-events: none;
+
+    text-align: center;
+}
+
+.donut-center-text strong {
+    font-family:
+        "Plus Jakarta Sans",
+        sans-serif;
+
+    color: var(--text-primary);
+
+    font-size: 21px;
+
+    font-weight: 800;
+}
+
+.donut-center-text span {
+    color: var(--text-secondary);
+
+    font-size: 8px;
+
+    white-space: nowrap;
+}
+
+.donut-legend {
+    display: flex;
+    flex-direction: column;
+
+    gap: 16px;
+
+    flex: 1;
+}
+
+.donut-legend-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    color: var(--text-secondary);
+
+    font-size: 9px;
+}
+
+.donut-legend-row > span {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+}
+
+.legend-circle {
+    display: inline-block;
+
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    flex-shrink: 0;
+}
+
+.donut-legend-row strong {
+    color: var(--text-primary);
+
+    font-weight: 700;
+}
+
+/* RECENT ALERTS */
+
+.recent-alerts-card {
+    min-height: 155px;
+}
+
+.recent-alerts-card .card-header {
+    min-height: 34px;
+
+    padding-bottom: 3px;
+}
+
+.text-link-button {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 6px;
+
+    background: transparent;
+
+    color: var(--primary-blue);
+
+    font-size: 9px;
+
+    font-weight: 600;
+}
+
+.text-link-button:hover {
+    text-decoration: underline;
+}
+
+.recent-alerts-list {
+    padding: 0 10px 8px;
+}
+
+.recent-alert-item {
+    display: grid;
+
+    grid-template-columns:
+        15px
+        42px
+        minmax(0, 1fr)
+        auto;
+
+    align-items: center;
+
+    gap: 5px;
+
+    min-height: 25px;
+
+    border-bottom: 1px solid var(--border-color);
+}
+
+.recent-alert-item:last-child {
+    border-bottom: 0;
+}
+
+.recent-alert-icon {
+    width: 14px;
+    height: 14px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 4px;
+
+    font-size: 8px;
+}
+
+.recent-alert-icon.critical {
+    color: var(--red);
+    background: rgba(255, 81, 91, 0.12);
+}
+
+.recent-alert-icon.warning {
+    color: var(--yellow);
+    background: rgba(255, 174, 25, 0.14);
+}
+
+.recent-alert-icon.info {
+    color: var(--primary-blue);
+    background: rgba(25, 113, 244, 0.12);
+}
+
+.recent-alert-center {
+    color: var(--text-primary);
+
+    font-size: 8px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+.recent-alert-message {
+    overflow: hidden;
+
+    color: var(--text-secondary);
+
+    font-size: 8px;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.recent-alert-message.critical {
+    color: var(--red);
+}
+
+.recent-alert-message.warning {
+    color: var(--yellow);
+}
+
+.recent-alert-message.info {
+    color: var(--primary-blue);
+}
+
+.recent-alert-time {
+    color: var(--text-muted);
+
+    font-size: 8px;
+
+    white-space: nowrap;
+}
+
+/* =========================================================
+   15. BOTTOM ANALYTICS
+========================================================= */
+
+.bottom-analytics-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    gap: 9px;
+}
+
+.heatmap-card,
+.correlation-card {
+    min-height: 193px;
+}
+
+.heatmap-card .card-header,
+.correlation-card .card-header {
+    min-height: 39px;
+}
+
+/* =========================================================
+   16. RECTANGULAR TEMPERATURE HEATMAP
+========================================================= */
+
+.heatmap-visual {
+    display: flex;
+    align-items: stretch;
+
+    gap: 7px;
+
+    padding: 7px 12px 12px;
+
+    height: 146px;
+}
+
+.heatmap-y-labels {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    padding-bottom: 17px;
+
+    flex-shrink: 0;
+
+    color: var(--text-secondary);
+
+    font-size: 8px;
+}
+
+.heatmap-main {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+
+    flex: 1;
+}
+
+.heatmap-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(12, minmax(0, 1fr));
+
+    grid-template-rows:
+        repeat(10, minmax(0, 1fr));
+
+    gap: 1px;
+
+    flex: 1;
+
+    min-height: 0;
+
+    background: rgba(24, 97, 162, 0.12);
+}
+
+.heatmap-cell {
+    min-width: 0;
+    min-height: 0;
+
+    transition:
+        filter 0.15s ease,
+        transform 0.15s ease;
+}
+
+.heatmap-cell:hover {
+    position: relative;
+
+    z-index: 2;
+
+    filter: brightness(1.15);
+
+    transform: scale(1.06);
+
+    outline: 1px solid #ffffff;
+}
+
+.heatmap-x-labels {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    height: 18px;
+
+    color: var(--text-secondary);
+
+    font-size: 8px;
+}
+
+.heatmap-color-legend {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 3px;
+
+    flex-shrink: 0;
+
+    color: var(--text-secondary);
+
+    font-size: 8px;
+}
+
+.heatmap-gradient {
+    width: 11px;
+
+    flex: 1;
+
+    border-radius: 2px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #ff514e 0%,
+            #ffa63a 22%,
+            #fff383 42%,
+            #24cdde 67%,
+            #0875fa 100%
+        );
+}
+
+/* =========================================================
+   17. POWER VS TEMPERATURE SCATTER
+========================================================= */
+
+.correlation-chart-wrapper {
+    height: 146px;
+
+    padding: 4px 13px 12px;
+}
+
+/* =========================================================
+   18. DASHBOARD FOOTER
+========================================================= */
+
+.dashboard-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    padding: 18px 4px 10px;
+
+    color: var(--text-muted);
+
+    font-size: 9px;
+}
+
+/* =========================================================
+   19. FLOATING LIGHT / DARK SWITCHER
+========================================================= */
+
+.theme-switcher {
+    position: fixed;
+
+    top: 43%;
+    right: 18px;
+
+    z-index: 500;
+
+    display: flex;
+    align-items: center;
+
+    gap: 3px;
+
+    padding: 5px;
+
+    border: 1px solid var(--border-color);
+    border-radius: 40px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 7px 23px rgba(14, 65, 129, 0.17);
+}
+
+.theme-option {
+    width: 37px;
+    height: 37px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    font-size: 19px;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.theme-option:hover {
+    transform: scale(1.08);
+}
+
+.light-option {
+    color: #ff9d0a;
+    background: transparent;
+}
+
+.dark-option {
+    color: #ffffff;
+    background: #071b32;
+}
+
+.light-option.active {
+    background: #fff0d5;
+}
+
+.dark-option.active {
+    background: #071b32;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+html[data-theme="dark"] .theme-switcher {
+    border-color: #29445e;
+}
+
+/* =========================================================
+   20. SECONDARY PAGES
+========================================================= */
+
+.secondary-page {
+    min-height: 70vh;
+}
+
+.secondary-page-header {
+    padding: 14px 5px 20px;
+}
+
+.secondary-page-header h2 {
+    font-family:
+        "Plus Jakarta Sans",
+        sans-serif;
+
+    font-size: 22px;
+
+    font-weight: 800;
+}
+
+.secondary-page-header p {
+    margin-top: 7px;
+
+    color: var(--text-secondary);
+
+    font-size: 12px;
+}
+
+.secondary-page-content {
+    min-height: 400px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 18px;
+
+    padding: 25px;
+
+    text-align: center;
+}
+
+.secondary-placeholder-icon {
+    width: 70px;
+    height: 70px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 17px;
+
+    background: var(--icon-blue-bg);
+
+    color: var(--primary-blue);
+
+    font-size: 28px;
+}
+
+.secondary-page-content h3 {
+    font-size: 19px;
+}
+
+.secondary-page-content p {
+    max-width: 390px;
+
+    color: var(--text-secondary);
+
+    font-size: 12px;
+
+    line-height: 1.8;
+}
+
+.back-button {
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    padding: 12px 17px;
+
+    border-radius: 8px;
+
+    background: var(--primary-blue);
+
+    color: #ffffff;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+.back-button:hover {
+    background: var(--primary-blue-hover);
+}
+
+/* =========================================================
+   21. DARK MODE DETAILS
+========================================================= */
+
+html[data-theme="dark"] .top-header {
+    box-shadow:
+        0 2px 12px rgba(0, 0, 0, 0.15);
+}
+
+html[data-theme="dark"] .kpi-card {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(20, 57, 86, 0.22),
+            transparent 70%
+        ),
+        var(--card-bg);
+}
+
+html[data-theme="dark"] .dashboard-card {
+    box-shadow:
+        inset 0 1px 0 rgba(149, 194, 240, 0.025),
+        var(--shadow);
+}
+
+html[data-theme="dark"] .kpi-icon-box.blue {
+    color: #39a9ff;
+}
+
+html[data-theme="dark"] .kpi-icon-box.orange {
+    color: #ffaf20;
+}
+
+html[data-theme="dark"] .kpi-icon-box.ice-blue {
+    color: #5acaff;
+}
+
+html[data-theme="dark"] .map-location-pin {
+    background: #f7fbff;
+
+    border-color: rgba(94, 158, 225, 0.55);
+
+    box-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.32);
+}
+
+html[data-theme="dark"] .brand-icon {
+    box-shadow:
+        0 0 17px rgba(20, 126, 255, 0.23);
+}
+
+/* =========================================================
+   22. ANIMATIONS
+========================================================= */
+
+@keyframes criticalBuildingPulse {
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.77;
+    }
+}
+
+@keyframes indicatorPulse {
+    0%,
+    100% {
+        box-shadow:
+            0 0 0 0 rgba(255, 81, 91, 0.23);
+    }
+
+    50% {
+        box-shadow:
+            0 0 0 6px rgba(255, 81, 91, 0);
+    }
+}
+
+.pin-dc04 .status-dot.critical {
+    animation:
+        indicatorPulse 2s ease-in-out infinite;
+}
+
+@keyframes fadeDashboardIn {
+    from {
+        opacity: 0;
+        transform: translateY(7px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.kpi-card,
+.dashboard-card {
+    animation:
+        fadeDashboardIn 0.45s ease both;
+}
+
+.kpi-card:nth-child(2) {
+    animation-delay: 0.04s;
+}
+
+.kpi-card:nth-child(3) {
+    animation-delay: 0.08s;
+}
+
+.kpi-card:nth-child(4) {
+    animation-delay: 0.12s;
+}
+
+.kpi-card:nth-child(5) {
+    animation-delay: 0.16s;
+}
+
+.kpi-card:nth-child(6) {
+    animation-delay: 0.20s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* =========================================================
+   23. LARGE DESKTOP SCREENS
+========================================================= */
+
+@media (min-width: 1400px) {
+    :root {
+        --sidebar-width: 190px;
+        --header-height: 68px;
+    }
+
+    .top-header {
+        padding: 0 26px;
+    }
+
+    .brand-text h1 {
+        font-size: 19px;
+    }
+
+    .dashboard-main {
+        padding: 16px;
+    }
+
+    .sidebar {
+        padding: 21px 12px;
+    }
+
+    .nav-item {
+        min-height: 44px;
+
+        font-size: 12px;
+    }
+
+    .kpi-grid,
+    .monitoring-grid,
+    .status-grid,
+    .bottom-analytics-grid {
+        gap: 13px;
+        margin-bottom: 13px;
+    }
+
+    .kpi-card {
+        min-height: 94px;
+        padding: 16px;
+    }
+
+    .kpi-value {
+        font-size: 27px;
+    }
+
+    .kpi-content h3 {
+        font-size: 11px;
+    }
+
+    .data-center-map-card {
+        min-height: 400px;
+    }
+
+    .infrastructure-visual {
+        min-height: 340px;
+    }
+
+    .map-location-pin {
+        min-width: 66px;
+        padding: 9px 8px;
+    }
+
+    .map-location-pin strong {
+        font-size: 12px;
+    }
+
+    .pin-temperature {
+        font-size: 11px;
+    }
+
+    .map-location-pin small {
+        font-size: 10px;
+    }
+
+    .card-heading h2 {
+        font-size: 13px;
+    }
+
+    .card-heading p {
+        font-size: 10px;
+    }
+
+    .status-table td {
+        padding: 10px 13px;
+        font-size: 11px;
+    }
+
+    .status-table th {
+        padding: 10px 13px;
+        font-size: 10px;
+    }
+
+    .alert-distribution-card {
+        min-height: 166px;
+    }
+
+    .recent-alerts-card {
+        min-height: 190px;
+    }
+
+    .recent-alert-item {
+        min-height: 30px;
+    }
+
+    .heatmap-card,
+    .correlation-card {
+        min-height: 240px;
+    }
+
+    .heatmap-visual {
+        height: 185px;
+    }
+
+    .correlation-chart-wrapper {
+        height: 188px;
+    }
+
+    .temperature-chart-wrapper,
+    .power-chart-wrapper {
+        height: 155px;
+    }
+}
+
+/* =========================================================
+   24. COMPACT LAPTOP
+========================================================= */
+
+@media (max-width: 1100px) {
+    :root {
+        --sidebar-width: 139px;
+    }
+
+    .top-header {
+        padding: 0 13px;
+        gap: 12px;
+    }
+
+    .header-actions {
+        gap: 9px;
+    }
+
+    .global-search {
+        width: 220px;
+    }
+
+    .header-date {
+        padding: 0 8px;
+        gap: 7px;
+    }
+
+    .dashboard-main {
+        padding: 8px;
+    }
+
+    .kpi-card {
+        padding: 10px 9px;
+        gap: 8px;
+    }
+
+    .kpi-icon-box {
+        width: 39px;
+        height: 44px;
+        font-size: 21px;
+    }
+
+    .kpi-value {
+        font-size: 21px;
+    }
+
+    .status-table td,
+    .status-table th {
+        padding-left: 7px;
+        padding-right: 7px;
+    }
+
+    .status-legend {
+        gap: 6px;
+    }
+}
+
+/* =========================================================
+   25. TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+    .brand-text h1 {
+        font-size: 15px;
+    }
+
+    .brand-text p {
+        font-size: 9px;
+    }
+
+    .global-search {
+        width: 185px;
+    }
+
+    .header-date small {
+        font-size: 7px;
+    }
+
+    .card-heading h2 {
+        font-size: 10px;
+    }
+
+    .card-heading p {
+        font-size: 8px;
+    }
+
+    .chart-select {
+        max-width: 92px;
+        font-size: 7px;
+    }
+
+    .status-legend {
+        gap: 5px;
+    }
+
+    .status-legend > span {
+        font-size: 8px;
+    }
+
+    .map-location-pin {
+        min-width: 49px;
+        padding: 6px 4px;
+    }
+
+    .map-location-pin strong,
+    .pin-temperature {
+        font-size: 9px;
+    }
+
+    .map-location-pin small {
+        font-size: 8px;
+    }
+
+    .recent-alert-item {
+        grid-template-columns:
+            13px
+            36px
+            minmax(0, 1fr)
+            auto;
+
+        gap: 4px;
+    }
+
+    .donut-chart-container {
+        width: 105px;
+        height: 102px;
+    }
+
+    .donut-legend-row {
+        font-size: 8px;
+        gap: 6px;
+    }
+}
+
+/* =========================================================
+   26. SMALL TABLET / MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+    :root {
+        --header-height: 62px;
+    }
+
+    .top-header {
+        padding: 0 12px;
+    }
+
+    .header-brand {
+        gap: 8px;
+    }
+
+    .brand-icon {
+        width: 34px;
+        height: 34px;
+
+        font-size: 17px;
+    }
+
+    .brand-text h1 {
+        font-size: 13px;
+    }
+
+    .brand-text p {
+        font-size: 8px;
+    }
+
+    .global-search,
+    .header-date {
+        display: none;
+    }
+
+    .mobile-menu-button {
+        display: block;
+    }
+
+    .app-body {
+        display: block;
+    }
+
+    .sidebar {
+        position: fixed;
+
+        top: var(--header-height);
+        left: 0;
+        bottom: 0;
+
+        width: 215px;
+        height: auto;
+
+        transform: translateX(-110%);
+
+        box-shadow:
+            8px 0 25px rgba(0, 0, 0, 0.12);
+
+        transition:
+            transform 0.25s ease;
+
+        z-index: 300;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .sidebar-overlay.open {
+        position: fixed;
+
+        inset: var(--header-height) 0 0;
+
+        display: block;
+
+        z-index: 290;
+
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-item {
+        min-height: 43px;
+        font-size: 12px;
+    }
+
+    .dashboard-main {
+        padding: 10px;
+    }
+
+    .kpi-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .monitoring-grid,
+    .status-grid,
+    .bottom-analytics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .data-center-map-card {
+        min-height: 390px;
+    }
+
+    .infrastructure-visual {
+        min-height: 333px;
+    }
+
+    .monitoring-charts {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        grid-template-rows: auto;
+    }
+
+    .compact-chart-card {
+        min-height: 200px;
+    }
+
+    .temperature-chart-wrapper,
+    .power-chart-wrapper {
+        min-height: 140px;
+    }
+
+    .status-table td,
+    .status-table th {
+        padding: 9px 11px;
+        font-size: 10px;
+    }
+
+    .alert-column {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        grid-template-rows: auto;
+    }
+
+    .recent-alert-item {
+        min-height: 27px;
+    }
+
+    .heatmap-visual {
+        height: 200px;
+    }
+
+    .correlation-chart-wrapper {
+        height: 210px;
+    }
+
+    .theme-switcher {
+        top: auto;
+
+        right: 14px;
+        bottom: 18px;
+    }
+}
+
+/* =========================================================
+   27. PHONE
+========================================================= */
+
+@media (max-width: 480px) {
+    .brand-text h1 {
+        font-size: 12px;
+    }
+
+    .brand-text p {
+        font-size: 7px;
+    }
+
+    .header-actions {
+        gap: 6px;
+    }
+
+    .profile-button {
+        width: 30px;
+        height: 30px;
+    }
+
+    .dashboard-main {
+        padding: 8px;
+    }
+
+    .kpi-grid {
+        gap: 7px;
+    }
+
+    .kpi-card {
+        min-height: 90px;
+
+        gap: 8px;
+
+        padding: 10px 8px;
+    }
+
+    .kpi-icon-box {
+        width: 34px;
+        height: 38px;
+
+        font-size: 19px;
+    }
+
+    .kpi-content h3 {
+        font-size: 9px;
+    }
+
+    .kpi-value {
+        font-size: 19px;
+    }
+
+    .kpi-description {
+        font-size: 8px;
+    }
+
+    .data-center-map-card {
+        min-height: 370px;
+    }
+
+    .infrastructure-visual {
+        min-height: 305px;
+    }
+
+    .status-legend {
+        display: none;
+    }
+
+    .map-location-pin {
+        padding: 5px 3px;
+
+        min-width: 45px;
+    }
+
+    .map-location-pin strong {
+        font-size: 8px;
+    }
+
+    .pin-temperature {
+        font-size: 8px;
+    }
+
+    .map-location-pin small {
+        font-size: 7px;
+    }
+
+    .monitoring-charts,
+    .alert-column {
+        grid-template-columns: 1fr;
+    }
+
+    .compact-chart-card {
+        min-height: 225px;
+    }
+
+    .temperature-chart-wrapper,
+    .power-chart-wrapper {
+        min-height: 165px;
+    }
+
+    .alert-distribution-card {
+        min-height: 170px;
+    }
+
+    .recent-alerts-card {
+        min-height: 190px;
+    }
+
+    .heatmap-visual {
+        gap: 5px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .dashboard-footer {
+        flex-direction: column;
+        gap: 5px;
+    }
+}
+
+/* ==========================================================
+   STEP 4 — REFERENCE SCREENSHOT LAYOUT FIX
+   Compact Laptop / Desktop Dashboard
+
+   Add this code at the VERY END of style.css
+   Do not delete the existing CSS.
+========================================================== */
+
+@media (min-width: 1200px) {
+
+    /* =====================================
+       1. HEADER AND SIDEBAR
+    ===================================== */
+
+    :root {
+        --sidebar-width: 155px;
+        --header-height: 58px;
+    }
+
+    .top-header {
+        height: 58px;
+        padding: 0 20px;
+    }
+
+    .brand-icon {
+        width: 39px;
+        height: 39px;
+    }
+
+    .brand-text h1 {
+        font-size: 17px;
+    }
+
+    .sidebar {
+        padding: 15px 9px;
+    }
+
+    .sidebar-nav {
+        gap: 5px;
+    }
+
+    .nav-item {
+        min-height: 37px;
+        padding: 0 10px;
+        font-size: 11px;
+    }
+
+    /* =====================================
+       2. MAIN DASHBOARD SPACING
+    ===================================== */
+
+    .dashboard-main {
+        padding: 10px;
+    }
+
+    .kpi-grid,
+    .monitoring-grid,
+    .status-grid,
+    .bottom-analytics-grid {
+        gap: 9px;
+        margin-bottom: 9px;
+    }
+
+    /* =====================================
+       3. COMPACT KPI CARDS
+    ===================================== */
+
+    .kpi-card {
+        min-height: 82px;
+        padding: 11px 12px;
+        gap: 11px;
+    }
+
+    .kpi-icon-box {
+        width: 42px;
+        height: 45px;
+        font-size: 23px;
+    }
+
+    .kpi-content h3 {
+        font-size: 10px;
+        margin-bottom: 5px;
+    }
+
+    .kpi-value {
+        font-size: 23px;
+    }
+
+    .kpi-description {
+        margin-top: 5px;
+        font-size: 9px;
+    }
+
+    /* =====================================
+       4. DATA CENTER MAP
+    ===================================== */
+
+    .monitoring-grid {
+        grid-template-columns:
+            minmax(0, 1.68fr)
+            minmax(0, 1fr);
+
+        height: 330px;
+        align-items: stretch;
+    }
+
+    .data-center-map-card {
+        height: 330px;
+        min-height: 0;
+    }
+
+    .data-center-map-card .card-header {
+        min-height: 42px;
+        flex-shrink: 0;
+    }
+
+    .infrastructure-visual {
+        flex: 1;
+        min-height: 0;
+        height: auto;
+    }
+
+    .data-center-illustration {
+        transform: scale(1.10) translateY(2%);
+    }
+
+    .map-location-pin {
+        min-width: 55px;
+        padding: 6px 5px;
+        gap: 3px;
+    }
+
+    .map-location-pin strong {
+        font-size: 10px;
+    }
+
+    .pin-temperature {
+        font-size: 10px;
+    }
+
+    .map-location-pin small {
+        font-size: 8px;
+    }
+
+    /* =====================================
+       5. TEMPERATURE + POWER CHARTS
+    ===================================== */
+
+    .monitoring-charts {
+        height: 330px;
+        min-height: 0;
+
+        grid-template-rows:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 9px;
+    }
+
+    .compact-chart-card {
+        height: 100%;
+        min-height: 0;
+    }
+
+    .compact-chart-card .card-header {
+        min-height: 39px;
+        flex-shrink: 0;
+    }
+
+    .temperature-chart-wrapper,
+    .power-chart-wrapper {
+        min-height: 0;
+        height: 100px;
+        flex: 1;
+        padding: 3px 10px 5px;
+    }
+
+    .chart-mini-legend {
+        min-height: 17px;
+        padding-bottom: 5px;
+        gap: 7px;
+    }
+
+    .card-heading h2 {
+        font-size: 11px;
+    }
+
+    .card-heading p {
+        font-size: 9px;
+    }
+
+    .chart-select {
+        max-width: 110px;
+        padding: 5px 7px;
+        font-size: 8px;
+    }
+
+    /* =====================================
+       6. COMPACT STATUS TABLE
+    ===================================== */
+
+    .status-grid {
+        grid-template-columns:
+            minmax(0, 1.72fr)
+            minmax(0, 1fr);
+
+        align-items: stretch;
+    }
+
+    .status-table-card .card-header {
+        min-height: 35px;
+        padding: 9px 11px 5px;
+    }
+
+    .status-table th {
+        padding: 6px 9px;
+        font-size: 9px;
+        line-height: 1.2;
+    }
+
+    .status-table td {
+        padding: 5px 9px;
+        font-size: 9px;
+        line-height: 1.25;
+    }
+
+    .table-status {
+        padding: 3px 8px;
+        font-size: 8px;
+    }
+
+    /* =====================================
+       7. ALERT DISTRIBUTION + RECENT ALERTS
+    ===================================== */
+
+    .alert-column {
+        grid-template-rows:
+            136px minmax(0, 1fr);
+
+        gap: 9px;
+    }
+
+    .alert-distribution-card {
+        min-height: 0;
+        height: 136px;
+    }
+
+    .alert-distribution-card .card-header {
+        min-height: 32px;
+        padding: 8px 11px 3px;
+    }
+
+    .donut-content {
+        padding: 2px 12px 8px;
+        gap: 8px;
+    }
+
+    .donut-chart-container {
+        width: 98px;
+        height: 94px;
+    }
+
+    .donut-center-text strong {
+        font-size: 20px;
+    }
+
+    .donut-legend {
+        gap: 11px;
+    }
+
+    .recent-alerts-card {
+        min-height: 0;
+    }
+
+    .recent-alerts-card .card-header {
+        min-height: 33px;
+        padding: 8px 11px 3px;
+    }
+
+    .recent-alert-item {
+        min-height: 24px;
+    }
+
+    /* =====================================
+       8. COMPACT BOTTOM ANALYTICS
+    ===================================== */
+
+    .heatmap-card,
+    .correlation-card {
+        height: 175px;
+        min-height: 0;
+    }
+
+    .heatmap-card .card-header,
+    .correlation-card .card-header {
+        min-height: 36px;
+        padding: 9px 11px 4px;
+    }
+
+    .heatmap-visual {
+        height: 134px;
+        padding: 5px 10px 10px;
+    }
+
+    .correlation-chart-wrapper {
+        height: 134px;
+        padding: 4px 11px 9px;
+    }
+
+    /* =====================================
+       9. FOOTER
+    ===================================== */
+
+    .dashboard-footer {
+        padding: 10px 4px 6px;
+        font-size: 9px;
+    }
+
+    /* =====================================
+       10. MOVE THEME SWITCHER OFF CHARTS
+    ===================================== */
+
+    .theme-switcher {
+        top: auto;
+        right: auto;
+
+        left: 29px;
+        bottom: 72px;
+
+        padding: 4px;
+        gap: 3px;
+
+        z-index: 150;
+    }
+
+    .theme-option {
+        width: 35px;
+        height: 35px;
+        font-size: 17px;
+    }
+}
+
+/* =============================================
+   KEEP THE THEME TOGGLE ACCESSIBLE ON PHONES
+============================================= */
+
+@media (max-width: 700px) {
+
+    .theme-switcher {
+        top: auto;
+        left: auto;
+
+        right: 14px;
+        bottom: 18px;
+    }
+
+}

@@ -1,0 +1,1233 @@
+
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Data Center Intelligence | Monitoring Dashboard</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <!-- ======================================
+         TOP HEADER
+    ======================================= -->
+
+    <header class="top-header">
+
+        <div class="header-brand">
+
+            <div class="brand-icon">
+                <i class="fa-solid fa-server"></i>
+            </div>
+
+            <div class="brand-text">
+                <h1>Data Center Intelligence</h1>
+                <p>Monitor · Analyse · Ensure Uptime</p>
+            </div>
+
+        </div>
+
+        <div class="header-actions">
+
+            <div class="global-search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                    type="search"
+                    id="globalSearch"
+                    placeholder="Search data centers, metrics, alerts..."
+                    aria-label="Search dashboard"
+                >
+            </div>
+
+            <div class="header-date">
+                <i class="fa-regular fa-calendar-check"></i>
+
+                <div>
+                    <strong id="currentDate">19 Oct 2026</strong>
+                    <small>Last Updated: Demo Data</small>
+                </div>
+
+                <i class="fa-solid fa-chevron-down date-arrow"></i>
+            </div>
+
+            <button
+                class="header-icon-btn notification-button"
+                id="notificationButton"
+                aria-label="View notifications"
+            >
+                <i class="fa-regular fa-bell"></i>
+                <span class="notification-count" id="notificationCount">3</span>
+            </button>
+
+            <button
+                class="profile-button"
+                id="profileButton"
+                aria-label="Administrator profile"
+            >
+                A
+            </button>
+
+            <button
+                class="mobile-menu-button"
+                id="mobileMenuButton"
+                aria-label="Open navigation menu"
+            >
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+        </div>
+
+    </header>
+
+    <!-- ======================================
+         APP BODY
+    ======================================= -->
+
+    <div class="app-body">
+
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar" id="sidebar">
+
+            <nav class="sidebar-nav">
+
+                <a
+                    href="#overview"
+                    class="nav-item active"
+                    data-page="overview"
+                >
+                    <i class="fa-solid fa-house"></i>
+                    <span>Overview</span>
+                </a>
+
+
+<a href="#" class="nav-item" data-page="intelligence">
+    <i class="fa-solid fa-brain"></i>
+    <span>Intelligence</span>
+</a>
+
+
+<a href="#" class="nav-item" data-page="anomalies">
+    <i class="fa-solid fa-shield-halved"></i>
+    <span>Anomaly Detection</span>
+</a>
+
+
+                <a
+                    href="#data-centers"
+                    class="nav-item"
+                    data-page="data-centers"
+                >
+                    <i class="fa-solid fa-building"></i>
+                    <span>Data Centers</span>
+                </a>
+
+                <a
+                    href="#temperature"
+                    class="nav-item"
+                    data-page="temperature"
+                >
+                    <i class="fa-solid fa-temperature-half"></i>
+                    <span>Temperature</span>
+                </a>
+
+                <a
+                    href="#power"
+                    class="nav-item"
+                    data-page="power"
+                >
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>Power & Energy</span>
+                </a>
+
+                <a
+                    href="#cooling"
+                    class="nav-item"
+                    data-page="cooling"
+                >
+                    <i class="fa-regular fa-snowflake"></i>
+                    <span>Cooling Systems</span>
+                </a>
+
+                <a
+                    href="#alerts"
+                    class="nav-item"
+                    data-page="alerts"
+                >
+                    <i class="fa-regular fa-bell"></i>
+                    <span>Alerts</span>
+                </a>
+
+                <a
+                    href="#reports"
+                    class="nav-item"
+                    data-page="reports"
+                >
+                    <i class="fa-regular fa-clipboard"></i>
+                    <span>Reports</span>
+                </a>
+
+            </nav>
+
+            <div class="sidebar-bottom">
+                <span class="sidebar-environment-dot"></span>
+                <span>Demo Environment</span>
+            </div>
+
+        </aside>
+
+        <!-- ======================================
+             MAIN DASHBOARD
+        ======================================= -->
+
+        <main class="dashboard-main">
+
+            <section class="dashboard-page" id="overview">
+
+                <!-- ======================================
+                     SIX KPI CARDS
+                ======================================= -->
+
+                <div class="kpi-grid">
+
+                    <!-- KPI 1 -->
+                    <article class="kpi-card">
+
+                        <div class="kpi-icon-box blue">
+                            <i class="fa-solid fa-server"></i>
+                        </div>
+
+                        <div class="kpi-content">
+                            <h3>Total Sensor Readings</h3>
+
+                            <div class="kpi-value blue-text" id="totalReadings">
+                                1.5M
+                            </div>
+
+                            <p class="kpi-description positive">
+                                <i class="fa-solid fa-arrow-up"></i>
+                                Demo daily readings
+                            </p>
+                        </div>
+
+                    </article>
+
+                    <!-- KPI 2 -->
+                    <article class="kpi-card">
+
+                        <div class="kpi-icon-box purple">
+                            <i class="fa-solid fa-building"></i>
+                        </div>
+
+                        <div class="kpi-content">
+                            <h3>Data Centers</h3>
+
+                            <div class="kpi-value" id="totalDataCenters">
+                                10
+                            </div>
+
+                            <p class="kpi-description">
+                                Monitored locations
+                            </p>
+                        </div>
+
+                    </article>
+
+                    <!-- KPI 3 -->
+                    <article class="kpi-card">
+
+                        <div class="kpi-icon-box orange">
+                            <i class="fa-solid fa-temperature-half"></i>
+                        </div>
+
+                        <div class="kpi-content">
+                            <h3>Avg Temperature</h3>
+
+                            <div class="kpi-value" id="avgTemperature">
+                                24.8 <span class="value-unit">°C</span>
+                            </div>
+
+                            <p class="kpi-description">
+                                Daily average
+                            </p>
+                        </div>
+
+                    </article>
+
+                    <!-- KPI 4 -->
+                    <article class="kpi-card">
+
+                        <div class="kpi-icon-box orange">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+
+                        <div class="kpi-content">
+                            <h3>Total Power Consumption</h3>
+
+                            <div class="kpi-value" id="totalPower">
+                                3,420 <span class="value-unit">kW</span>
+                            </div>
+
+                            <p class="kpi-description positive">
+                                Illustrative value
+                            </p>
+                        </div>
+
+                    </article>
+
+                    <!-- KPI 5 -->
+                    <article class="kpi-card">
+
+                        <div class="kpi-icon-box ice-blue">
+                            <i class="fa-regular fa-snowflake"></i>
+                        </div>
+
+                        <div class="kpi-content">
+                            <h3>Cooling Efficiency</h3>
+
+                            <div class="kpi-value blue-text" id="coolingEfficiency">
+                                92%
+                            </div>
+
+                            <p class="kpi-description">
+                                Demo metric
+                            </p>
+                        </div>
+
+                    </article>
+
+                    <!-- KPI 6 -->
+                    <article class="kpi-card">
+
+                        <div class="kpi-icon-box red">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+
+                        <div class="kpi-content">
+                            <h3>Critical Alerts</h3>
+
+                            <div class="kpi-value red-text" id="criticalAlerts">
+                                3
+                            </div>
+
+                            <p class="kpi-description">
+                                Requires attention
+                            </p>
+                        </div>
+
+                    </article>
+
+                </div>
+
+                <!-- ======================================
+                     MAIN MONITORING SECTION
+                ======================================= -->
+
+                <div class="monitoring-grid">
+
+                    <!-- ISOMETRIC DATA CENTER MAP -->
+
+                    <article class="dashboard-card data-center-map-card">
+
+                        <div class="card-header">
+
+                            <div class="card-heading">
+
+                                <span class="card-header-icon">
+                                    <i class="fa-solid fa-house"></i>
+                                </span>
+
+                                <div>
+                                    <h2>Data Center Overview</h2>
+                                    <p>Infrastructure status and key metrics</p>
+                                </div>
+
+                            </div>
+
+                            <div class="status-legend">
+                                <span>
+                                    <i class="status-dot healthy"></i>
+                                    Healthy
+                                </span>
+
+                                <span>
+                                    <i class="status-dot warning"></i>
+                                    Warning
+                                </span>
+
+                                <span>
+                                    <i class="status-dot critical"></i>
+                                    Critical
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <div class="infrastructure-visual">
+
+                            <!--
+                                Inline SVG isometric server campus.
+                                Building illustration is decorative.
+                                Actual DC status comes from dashboard data.
+                            -->
+
+                            <svg
+                                class="data-center-illustration"
+                                viewBox="0 0 900 570"
+                                xmlns="http://www.w3.org/2000/svg"
+                                role="img"
+                                aria-label="Illustrative isometric data center campus with multiple server buildings"
+                            >
+
+                                <defs>
+
+                                    <linearGradient id="groundGradient" x1="0" y1="0" x2="1" y2="1">
+                                        <stop offset="0%" stop-color="#d5ebfa"/>
+                                        <stop offset="100%" stop-color="#8bb9e0"/>
+                                    </linearGradient>
+
+                                    <linearGradient id="buildingFront" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="#79b4e7"/>
+                                        <stop offset="100%" stop-color="#316ca2"/>
+                                    </linearGradient>
+
+                                    <linearGradient id="buildingSide" x1="0" y1="0" x2="1" y2="1">
+                                        <stop offset="0%" stop-color="#4d87b8"/>
+                                        <stop offset="100%" stop-color="#1a4674"/>
+                                    </linearGradient>
+
+                                    <linearGradient id="buildingTop" x1="0" y1="0" x2="1" y2="1">
+                                        <stop offset="0%" stop-color="#e6f5ff"/>
+                                        <stop offset="100%" stop-color="#89bae2"/>
+                                    </linearGradient>
+
+                                    <linearGradient id="criticalFront" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="#fc776e"/>
+                                        <stop offset="100%" stop-color="#ad2e43"/>
+                                    </linearGradient>
+
+                                    <linearGradient id="criticalSide" x1="0" y1="0" x2="1" y2="1">
+                                        <stop offset="0%" stop-color="#e64c53"/>
+                                        <stop offset="100%" stop-color="#7b233d"/>
+                                    </linearGradient>
+
+                                    <filter id="campusShadow" x="-40%" y="-40%" width="180%" height="180%">
+                                        <feGaussianBlur stdDeviation="12"/>
+                                    </filter>
+
+                                    <filter id="criticalGlow" x="-60%" y="-60%" width="220%" height="220%">
+                                        <feGaussianBlur stdDeviation="16"/>
+                                    </filter>
+
+                                    <!-- Reusable isometric building -->
+                                    <g id="campusBuilding">
+
+                                        <!-- Front -->
+                                        <polygon
+                                            points="0,36 70,69 70,172 0,140"
+                                            fill="url(#buildingFront)"
+                                            stroke="#b4dafa"
+                                            stroke-width="2"
+                                        />
+
+                                        <!-- Side -->
+                                        <polygon
+                                            points="70,69 142,32 142,135 70,172"
+                                            fill="url(#buildingSide)"
+                                            stroke="#a6d1f5"
+                                            stroke-width="2"
+                                        />
+
+                                        <!-- Roof -->
+                                        <polygon
+                                            points="0,36 70,0 142,32 70,69"
+                                            fill="url(#buildingTop)"
+                                            stroke="#f5fbff"
+                                            stroke-width="3"
+                                        />
+
+                                        <!-- Roof equipment -->
+                                        <polygon
+                                            points="32,33 67,14 105,32 70,51"
+                                            fill="#578ebc"
+                                            stroke="#d7edff"
+                                            stroke-width="2"
+                                        />
+
+                                        <polygon
+                                            points="43,32 68,19 92,31 68,44"
+                                            fill="#244f82"
+                                        />
+
+                                        <!-- Front racks -->
+                                        <g fill="#173c68" stroke="#8bc8fc" stroke-width="1.5">
+                                            <polygon points="12,64 31,73 31,124 12,115"/>
+                                            <polygon points="39,77 58,86 58,137 39,128"/>
+                                        </g>
+
+                                        <!-- Side racks -->
+                                        <g fill="#12365e" stroke="#8bc8fc" stroke-width="1.5">
+                                            <polygon points="83,88 103,78 103,129 83,139"/>
+                                            <polygon points="111,73 131,63 131,114 111,124"/>
+                                        </g>
+
+                                        <!-- LED details -->
+                                        <g fill="#42ddfd">
+                                            <circle cx="22" cy="84" r="2.5"/>
+                                            <circle cx="22" cy="100" r="2.5"/>
+                                            <circle cx="49" cy="97" r="2.5"/>
+                                            <circle cx="49" cy="113" r="2.5"/>
+                                            <circle cx="94" cy="94" r="2.5"/>
+                                            <circle cx="94" cy="110" r="2.5"/>
+                                            <circle cx="121" cy="80" r="2.5"/>
+                                            <circle cx="121" cy="96" r="2.5"/>
+                                        </g>
+
+                                        <!-- Lower ventilation -->
+                                        <g stroke="#b7e2fc" stroke-width="2" opacity=".75">
+                                            <line x1="14" y1="133" x2="57" y2="153"/>
+                                            <line x1="84" y1="155" x2="128" y2="133"/>
+                                        </g>
+
+                                    </g>
+
+                                    <!-- Critical building -->
+                                    <g id="criticalBuilding">
+
+                                        <polygon
+                                            points="0,36 70,69 70,172 0,140"
+                                            fill="url(#criticalFront)"
+                                            stroke="#ffa4a2"
+                                            stroke-width="2"
+                                        />
+
+                                        <polygon
+                                            points="70,69 142,32 142,135 70,172"
+                                            fill="url(#criticalSide)"
+                                            stroke="#ff8c86"
+                                            stroke-width="2"
+                                        />
+
+                                        <polygon
+                                            points="0,36 70,0 142,32 70,69"
+                                            fill="#f7a0a0"
+                                            stroke="#ffe0de"
+                                            stroke-width="3"
+                                        />
+
+                                        <polygon
+                                            points="35,35 70,17 106,34 70,51"
+                                            fill="#b63f53"
+                                            stroke="#ffe0de"
+                                            stroke-width="2"
+                                        />
+
+                                        <g fill="#61213b" stroke="#ff9a93" stroke-width="2">
+                                            <polygon points="13,66 32,75 32,125 13,116"/>
+                                            <polygon points="40,79 59,88 59,138 40,129"/>
+                                            <polygon points="83,88 104,78 104,129 83,139"/>
+                                            <polygon points="112,73 132,63 132,114 112,124"/>
+                                        </g>
+
+                                        <g fill="#ffe07b">
+                                            <circle cx="22" cy="85" r="3"/>
+                                            <circle cx="22" cy="101" r="3"/>
+                                            <circle cx="49" cy="98" r="3"/>
+                                            <circle cx="94" cy="96" r="3"/>
+                                            <circle cx="121" cy="81" r="3"/>
+                                        </g>
+
+                                    </g>
+
+                                    <!-- Simple isometric tree -->
+                                    <g id="campusTree">
+                                        <rect x="-3" y="21" width="6" height="24" fill="#846b57"/>
+                                        <circle cx="0" cy="10" r="18" fill="#7dbd7b"/>
+                                        <circle cx="-9" cy="4" r="12" fill="#b0d6a3"/>
+                                        <circle cx="8" cy="0" r="12" fill="#519e7b"/>
+                                    </g>
+
+                                </defs>
+
+                                <!-- Ground shadow -->
+                                <ellipse
+                                    cx="450"
+                                    cy="408"
+                                    rx="375"
+                                    ry="128"
+                                    fill="#2c6695"
+                                    opacity=".22"
+                                    filter="url(#campusShadow)"
+                                />
+
+                                <!-- Isometric campus floor -->
+                                <polygon
+                                    class="campus-ground"
+                                    points="70,320 447,120 835,329 455,536"
+                                    fill="url(#groundGradient)"
+                                    stroke="#8bbce7"
+                                    stroke-width="4"
+                                />
+
+                                <polygon
+                                    points="70,320 455,536 455,553 70,337"
+                                    fill="#5f9bc9"
+                                />
+
+                                <polygon
+                                    points="455,536 835,329 835,346 455,553"
+                                    fill="#3d78ae"
+                                />
+
+                                <!-- Floor grid -->
+                                <g
+                                    stroke="#f6fbff"
+                                    stroke-width="2"
+                                    opacity=".58"
+                                >
+                                    <line x1="146" y1="279" x2="531" y2="495"/>
+                                    <line x1="222" y1="239" x2="607" y2="454"/>
+                                    <line x1="297" y1="199" x2="683" y2="413"/>
+                                    <line x1="372" y1="158" x2="759" y2="372"/>
+
+                                    <line x1="148" y1="363" x2="524" y2="162"/>
+                                    <line x1="224" y1="406" x2="600" y2="204"/>
+                                    <line x1="300" y1="450" x2="678" y2="246"/>
+                                    <line x1="378" y1="492" x2="755" y2="288"/>
+                                </g>
+
+                                <!-- Roads -->
+                                <polygon
+                                    points="136,330 435,167 461,183 163,347"
+                                    fill="#90b6d2"
+                                    opacity=".8"
+                                />
+
+                                <polygon
+                                    points="349,471 679,289 704,305 373,488"
+                                    fill="#90b6d2"
+                                    opacity=".8"
+                                />
+
+                                <!-- Landscaping -->
+                                <g opacity=".9">
+                                    <use href="#campusTree" x="140" y="310" transform="translate(140 310) scale(.72) translate(-140 -310)"/>
+                                    <use href="#campusTree" x="190" y="380"/>
+                                    <use href="#campusTree" x="260" y="424"/>
+                                    <use href="#campusTree" x="690" y="290"/>
+                                    <use href="#campusTree" x="740" y="338"/>
+                                    <use href="#campusTree" x="563" y="448"/>
+                                </g>
+
+                                <!-- Back row -->
+                                <use href="#campusBuilding" transform="translate(248 174) scale(.72)"/>
+                                <use href="#campusBuilding" transform="translate(360 126) scale(.76)"/>
+                                <use href="#campusBuilding" transform="translate(480 174) scale(.72)"/>
+
+                                <!-- Middle row -->
+                                <use href="#campusBuilding" transform="translate(139 281) scale(.84)"/>
+                                <use href="#campusBuilding" transform="translate(285 257) scale(.81)"/>
+                                <use href="#campusBuilding" transform="translate(525 255) scale(.82)"/>
+                                <use href="#campusBuilding" transform="translate(656 289) scale(.75)"/>
+
+                                <!-- Critical building glow -->
+                                <ellipse
+                                    cx="444"
+                                    cy="410"
+                                    rx="95"
+                                    ry="64"
+                                    fill="#ff505b"
+                                    opacity=".42"
+                                    filter="url(#criticalGlow)"
+                                />
+
+                                <!-- Center critical building -->
+                                <use
+                                    href="#criticalBuilding"
+                                    transform="translate(384 307) scale(.93)"
+                                    class="critical-building-visual"
+                                />
+
+                                <!-- Front buildings -->
+                                <use href="#campusBuilding" transform="translate(220 380) scale(.76)"/>
+                                <use href="#campusBuilding" transform="translate(550 373) scale(.76)"/>
+
+                            </svg>
+
+                            <!-- FLOATING DC STATUS CARDS -->
+
+                            <div class="map-location-pin pin-dc01" data-center="DC-01">
+                                <strong>DC-01</strong>
+                                <span class="pin-temperature">22.4°C</span>
+                                <small class="healthy">
+                                    <i class="status-dot healthy"></i>
+                                    Healthy
+                                </small>
+                            </div>
+
+                            <div class="map-location-pin pin-dc02" data-center="DC-02">
+                                <strong>DC-02</strong>
+                                <span class="pin-temperature warning-text">28.1°C</span>
+                                <small class="warning">
+                                    <i class="status-dot warning"></i>
+                                    Warning
+                                </small>
+                            </div>
+
+                            <div class="map-location-pin pin-dc03" data-center="DC-03">
+                                <strong>DC-03</strong>
+                                <span class="pin-temperature">24.5°C</span>
+                                <small class="healthy">
+                                    <i class="status-dot healthy"></i>
+                                    Healthy
+                                </small>
+                            </div>
+
+                            <div class="map-location-pin pin-dc04" data-center="DC-04">
+                                <strong>DC-04</strong>
+                                <span class="pin-temperature critical-text">31.2°C</span>
+                                <small class="critical">
+                                    <i class="status-dot critical"></i>
+                                    Critical
+                                </small>
+                            </div>
+
+                            <div class="map-location-pin pin-dc05" data-center="DC-05">
+                                <strong>DC-05</strong>
+                                <span class="pin-temperature">23.8°C</span>
+                                <small class="healthy">
+                                    <i class="status-dot healthy"></i>
+                                    Healthy
+                                </small>
+                            </div>
+
+                            <div class="map-location-pin pin-dc06" data-center="DC-06">
+                                <strong>DC-06</strong>
+                                <span class="pin-temperature">26.0°C</span>
+                                <small class="healthy">
+                                    <i class="status-dot healthy"></i>
+                                    Healthy
+                                </small>
+                            </div>
+
+                            <div class="map-location-pin pin-dc07" data-center="DC-07">
+                                <strong>DC-07</strong>
+                                <span class="pin-temperature warning-text">27.8°C</span>
+                                <small class="warning">
+                                    <i class="status-dot warning"></i>
+                                    Warning
+                                </small>
+                            </div>
+
+                            <div class="map-location-pin pin-dc08" data-center="DC-08">
+                                <strong>DC-08</strong>
+                                <span class="pin-temperature">24.1°C</span>
+                                <small class="healthy">
+                                    <i class="status-dot healthy"></i>
+                                    Healthy
+                                </small>
+                            </div>
+
+                            <div class="map-location-pin pin-dc09" data-center="DC-09">
+                                <strong>DC-09</strong>
+                                <span class="pin-temperature">26.2°C</span>
+                                <small class="healthy">
+                                    <i class="status-dot healthy"></i>
+                                    Healthy
+                                </small>
+                            </div>
+
+                            <div class="map-location-pin pin-dc10" data-center="DC-10">
+                                <strong>DC-10</strong>
+                                <span class="pin-temperature">23.8°C</span>
+                                <small class="healthy">
+                                    <i class="status-dot healthy"></i>
+                                    Healthy
+                                </small>
+                            </div>
+
+                            <div class="map-demo-label">
+                                Illustrative infrastructure map
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                    <!-- RIGHT SIDE CHARTS -->
+
+                    <div class="monitoring-charts">
+
+                        <!-- TEMPERATURE -->
+
+                        <article class="dashboard-card compact-chart-card">
+
+                            <div class="card-header">
+
+                                <div class="card-heading">
+
+                                    <span class="card-header-icon">
+                                        <i class="fa-solid fa-temperature-half"></i>
+                                    </span>
+
+                                    <div>
+                                        <h2>Temperature Trend</h2>
+                                        <p>(Demo Trend)</p>
+                                    </div>
+
+                                </div>
+
+                                <select
+                                    class="chart-select"
+                                    id="temperatureCenterFilter"
+                                    aria-label="Filter temperature by data center"
+                                >
+                                    <option value="all">All Data Centers</option>
+                                    <option value="DC-01">DC-01</option>
+                                    <option value="DC-02">DC-02</option>
+                                    <option value="DC-03">DC-03</option>
+                                    <option value="DC-04">DC-04</option>
+                                    <option value="DC-05">DC-05</option>
+                                    <option value="DC-06">DC-06</option>
+                                    <option value="DC-07">DC-07</option>
+                                    <option value="DC-08">DC-08</option>
+                                    <option value="DC-09">DC-09</option>
+                                    <option value="DC-10">DC-10</option>
+                                </select>
+
+                            </div>
+
+                            <div class="chart-wrapper temperature-chart-wrapper">
+                                <canvas id="temperatureChart"></canvas>
+                            </div>
+
+                            <div class="chart-mini-legend" id="temperatureLegend">
+                                <!-- Added by JavaScript -->
+                            </div>
+
+                        </article>
+
+                        <!-- POWER -->
+
+                        <article class="dashboard-card compact-chart-card">
+
+                            <div class="card-header">
+
+                                <div class="card-heading">
+
+                                    <span class="card-header-icon">
+                                        <i class="fa-solid fa-bolt"></i>
+                                    </span>
+
+                                    <div>
+                                        <h2>Power Consumption</h2>
+                                        <p>Average power by data center</p>
+                                    </div>
+
+                                </div>
+
+                                <select
+                                    class="chart-select"
+                                    id="powerCenterFilter"
+                                    aria-label="Filter power by data center"
+                                >
+                                    <option value="all">All Data Centers</option>
+                                    <option value="DC-01">DC-01</option>
+                                    <option value="DC-02">DC-02</option>
+                                    <option value="DC-03">DC-03</option>
+                                    <option value="DC-04">DC-04</option>
+                                    <option value="DC-05">DC-05</option>
+                                    <option value="DC-06">DC-06</option>
+                                    <option value="DC-07">DC-07</option>
+                                    <option value="DC-08">DC-08</option>
+                                    <option value="DC-09">DC-09</option>
+                                    <option value="DC-10">DC-10</option>
+                                </select>
+
+                            </div>
+
+                            <div class="chart-wrapper power-chart-wrapper">
+                                <canvas id="powerChart"></canvas>
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                </div>
+
+                <!-- ======================================
+                     STATUS TABLE + ALERT PANELS
+                ======================================= -->
+
+                <div class="status-grid">
+
+                    <!-- DATA CENTER TABLE -->
+
+                    <article class="dashboard-card status-table-card">
+
+                        <div class="card-header">
+
+                            <div class="card-heading">
+
+                                <span class="card-header-icon">
+                                    <i class="fa-solid fa-server"></i>
+                                </span>
+
+                                <div>
+                                    <h2>Data Center Status</h2>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="table-scroll">
+
+                            <table class="status-table">
+
+                                <thead>
+                                    <tr>
+                                        <th>Data Center</th>
+                                        <th>Temperature</th>
+                                        <th>Power (kW)</th>
+                                        <th>Cooling Efficiency</th>
+                                        <th>Status</th>
+                                        <th>Last Updated</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="dataCenterStatusTable">
+                                    <!-- Rows added by JavaScript -->
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </article>
+
+                    <!-- ALERT RIGHT COLUMN -->
+
+                    <div class="alert-column">
+
+                        <!-- DONUT CHART -->
+
+                        <article class="dashboard-card alert-distribution-card">
+
+                            <div class="card-header">
+
+                                <div class="card-heading">
+
+                                    <span class="card-header-icon">
+                                        <i class="fa-solid fa-bell"></i>
+                                    </span>
+
+                                    <div>
+                                        <h2>Alert Distribution</h2>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="donut-content">
+
+                                <div class="donut-chart-container">
+
+                                    <canvas id="alertDonutChart"></canvas>
+
+                                    <div class="donut-center-text">
+                                        <strong id="totalAlertsCount">23</strong>
+                                        <span>Total Alerts</span>
+                                    </div>
+
+                                </div>
+
+                                <div class="donut-legend">
+
+                                    <div class="donut-legend-row">
+                                        <span>
+                                            <i class="legend-circle critical"></i>
+                                            Critical
+                                        </span>
+
+                                        <strong id="criticalAlertCount">3</strong>
+                                    </div>
+
+                                    <div class="donut-legend-row">
+                                        <span>
+                                            <i class="legend-circle warning"></i>
+                                            Warning
+                                        </span>
+
+                                        <strong id="warningAlertCount">8</strong>
+                                    </div>
+
+                                    <div class="donut-legend-row">
+                                        <span>
+                                            <i class="legend-circle info"></i>
+                                            Info
+                                        </span>
+
+                                        <strong id="infoAlertCount">12</strong>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </article>
+
+                        <!-- RECENT ALERTS -->
+
+                        <article class="dashboard-card recent-alerts-card">
+
+                            <div class="card-header">
+
+                                <div class="card-heading">
+
+                                    <span class="card-header-icon">
+                                        <i class="fa-solid fa-bell"></i>
+                                    </span>
+
+                                    <div>
+                                        <h2>Recent Alerts</h2>
+                                    </div>
+
+                                </div>
+
+                                <button class="text-link-button" id="viewAllAlerts">
+                                    View All
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+
+                            </div>
+
+                            <div class="recent-alerts-list" id="recentAlertsList">
+                                <!-- Added by JavaScript -->
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                </div>
+
+                <!-- ======================================
+                     BOTTOM ANALYTICS
+                ======================================= -->
+
+                <div class="bottom-analytics-grid">
+
+                    <!-- TEMPERATURE HEATMAP -->
+
+                    <article class="dashboard-card heatmap-card">
+
+                        <div class="card-header">
+
+                            <div class="card-heading">
+
+                                <span class="card-header-icon">
+                                    <i class="fa-solid fa-temperature-high"></i>
+                                </span>
+
+                                <div>
+                                    <h2>Temperature Heatmap</h2>
+                                </div>
+
+                            </div>
+
+                            <select
+                                class="chart-select"
+                                id="heatmapPeriod"
+                                aria-label="Select heatmap period"
+                            >
+                                <option value="demo">Demo Trend</option>
+                            </select>
+
+                        </div>
+
+                        <div class="heatmap-visual">
+
+                            <div class="heatmap-y-labels" id="heatmapYLabels">
+                                <!-- Added by JavaScript -->
+                            </div>
+
+                            <div class="heatmap-main">
+
+                                <div class="heatmap-grid" id="temperatureHeatmap">
+                                    <!-- Added by JavaScript -->
+                                </div>
+
+                                <div class="heatmap-x-labels" id="heatmapXLabels">
+                                    <!-- Added by JavaScript -->
+                                </div>
+
+                            </div>
+
+                            <div class="heatmap-color-legend">
+
+                                <span>50°C</span>
+
+                                <div class="heatmap-gradient"></div>
+
+                                <span>0°C</span>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                    <!-- POWER VS TEMP CORRELATION -->
+
+                    <article class="dashboard-card correlation-card">
+
+                        <div class="card-header">
+
+                            <div class="card-heading">
+
+                                <span class="card-header-icon">
+                                    <i class="fa-solid fa-chart-scatter"></i>
+                                </span>
+
+                                <div>
+                                    <h2>Power vs Temperature Correlation</h2>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="chart-wrapper correlation-chart-wrapper">
+                            <canvas id="correlationChart"></canvas>
+                        </div>
+
+                    </article>
+
+                </div>
+
+                <footer class="dashboard-footer">
+                    <span>
+                        Data Center Intelligence Platform · Demo Dashboard
+                    </span>
+
+                    <span>
+                        Databricks integration pending
+                    </span>
+                </footer>
+
+            </section>
+
+            <!-- ======================================
+                 SECONDARY NAVIGATION PAGES
+            ======================================= -->
+
+            <section
+                class="dashboard-page secondary-page hidden"
+                id="secondaryPage"
+            >
+
+                <div class="secondary-page-header">
+
+                    <h2 id="secondaryPageTitle">
+                        Data Centers
+                    </h2>
+
+                    <p id="secondaryPageDescription">
+                        Infrastructure intelligence workspace
+                    </p>
+
+                </div>
+
+                <div class="dashboard-card secondary-page-content">
+
+                    <div class="secondary-placeholder-icon">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+
+                    <h3 id="secondaryContentTitle">
+                        Analytics Module
+                    </h3>
+
+                    <p>
+                        Detailed analytics for this section
+                        will be added after the overview dashboard
+                        matches the approved design.
+                    </p>
+
+                    <button class="back-button" id="backToOverview">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        Back to Overview
+                    </button>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</div>
+
+<!-- ======================================
+     FLOATING LIGHT / DARK THEME TOGGLE
+======================================= -->
+
+<div class="theme-switcher">
+
+    <button
+        class="theme-option light-option active"
+        id="lightModeButton"
+        aria-label="Switch to light mode"
+        title="Light Mode"
+    >
+        <i class="fa-solid fa-sun"></i>
+    </button>
+
+    <button
+        class="theme-option dark-option"
+        id="darkModeButton"
+        aria-label="Switch to dark mode"
+        title="Dark Mode"
+    >
+        <i class="fa-solid fa-moon"></i>
+    </button>
+
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Dashboard JavaScript -->
+<script src="script.js"></script>
+
+</body>
+</html>
